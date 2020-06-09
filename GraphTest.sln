@@ -1,0 +1,27 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30128.74
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GraphTest", "GraphTest.csproj", "{E9575D18-91F8-488C-BA27-44A7EE31D322}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|x64 = Debug|x64
+		Release|x64 = Release|x64
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{E9575D18-91F8-488C-BA27-44A7EE31D322}.Debug|x64.ActiveCfg = Debug|x64
+		{E9575D18-91F8-488C-BA27-44A7EE31D322}.Debug|x64.Build.0 = Debug|x64
+		{E9575D18-91F8-488C-BA27-44A7EE31D322}.Debug|x64.Deploy.0 = Debug|x64
+		{E9575D18-91F8-488C-BA27-44A7EE31D322}.Release|x64.ActiveCfg = Release|x64
+		{E9575D18-91F8-488C-BA27-44A7EE31D322}.Release|x64.Build.0 = Release|x64
+		{E9575D18-91F8-488C-BA27-44A7EE31D322}.Release|x64.Deploy.0 = Release|x64
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {F773BA69-4E82-47A7-9375-A99F76A9FF67}
+	EndGlobalSection
+EndGlobal
