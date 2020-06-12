@@ -15,6 +15,7 @@ namespace GraphUtility
         public List<GTriangle> Triangles = null;
         public List<GNode> GraphNodes = null;
         public GNode RootGraphNode = null;
+        public GNode SpanningTreeRoot = null;
         public GBound Bound = null;
         public GTriangle SuperTriangle = null;
         public DelaunayTriangulation()
@@ -54,7 +55,7 @@ namespace GraphUtility
             Int32 count = 0;
             foreach (GTriangle tri in triangles)
             {
-                if(tri.IsEqual(triangle))
+                if (tri.IsEqual(triangle))
                 {
                     count++;
                 }
@@ -124,6 +125,35 @@ namespace GraphUtility
             }
             this.RootGraphNode = GNode.GetLeftTopNode(this.Bound, this.GraphNodes);
             Debug.Assert(null != this.RootGraphNode);
+            // Spanning tree.
+            this.SpanningTreeRoot = new GNode(this.RootGraphNode.Point);
+            this.CreateSpannigTree(this.RootGraphNode, this.SpanningTreeRoot, null);
         }
+        private void CreateSpannigTree(GNode node, GNode parent, List<GNode> visitedNodes)
+        {
+            if (null == visitedNodes)
+            {
+                visitedNodes = new List<GNode>();
+            }
+            visitedNodes.Add(node);
+            {
+                List<Int32> indices = new List<int>();
+                for (Int32 index1 = 0; index1 < node.Neighbers.Count; index1++)
+                {
+                    indices.Add(index1);
+                }
+                indices = new List<int>(indices.OrderBy(i => Guid.NewGuid()));
+                foreach (Int32 i in indices)
+                {
+                    if (false == GNode.IsInList(node.Neighbers[i], visitedNodes))
+                    {
+                        GNode nextNode = new GNode(node.Neighbers[i].Point);
+                        parent.Neighbers.Add(nextNode);
+                        this.CreateSpannigTree(node.Neighbers[i], nextNode, visitedNodes);
+                    }
+                }
+            }
+        }
+
     }
 }

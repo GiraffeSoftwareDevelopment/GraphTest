@@ -12,7 +12,7 @@
         <Grid ScrollViewer.HorizontalScrollBarVisibility="Visible" ScrollViewer.VerticalScrollBarVisibility="Visible">
             <Button x:Name="Button1" Content="Generate" Margin="10,47,0,0" VerticalAlignment="Top" Height="32" Width="100" Click="Button1_Click" HorizontalAlignment="Left"/>
             <Grid x:Name="Graph_Grid" Background="#FF414141" VerticalAlignment="Stretch" Margin="0,90,0,0" ScrollViewer.HorizontalScrollBarVisibility="Auto" ScrollViewer.VerticalScrollBarVisibility="Auto">
-                <Canvas x:Name="Main_canvas" Width="256" Height="256" HorizontalAlignment="Center" VerticalAlignment="Center" Background="White" Canvas.Left="256" Canvas.Top="256"/>
+                <Canvas x:Name="Main_canvas" Width="512" Height="512" HorizontalAlignment="Center" VerticalAlignment="Center" Background="White" Canvas.Left="256" Canvas.Top="256"/>
                 <TextBox x:Name="Text_ElapsedTime" Text="" HorizontalAlignment="Left" VerticalAlignment="Top" FocusVisualPrimaryBrush="{x:Null}" BorderBrush="{x:Null}" Background="{x:Null}" FocusVisualSecondaryBrush="{x:Null}" SelectionHighlightColor="#FF038387" IsReadOnly="True" AllowFocusOnInteraction="False"/>
             </Grid>
             <TextBox x:Name="TextBox_point_size" HorizontalAlignment="Left" Margin="73,10,0,0" Text="" VerticalAlignment="Top"/>

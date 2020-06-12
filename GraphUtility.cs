@@ -223,7 +223,7 @@ namespace GraphUtility
             float minY = (Center.Y - this.HeightHalf);
             float maxX = (Center.X + this.WidthHalf);
             float maxY = (Center.Y + this.HeightHalf);
-            if ((minX < point.X) && (point.X < maxX)&&
+            if ((minX < point.X) && (point.X < maxX) &&
                 (minY < point.Y) && (point.Y < maxY))
             {
                 result = true;
@@ -233,15 +233,15 @@ namespace GraphUtility
         public bool Cross(GEdge edge)
         {
             Int32 outside = 0;
-            if (true == this.Contains(edge.Point1)){outside++;}
-            if (true == this.Contains(edge.Point2)){outside++;}
+            if (true == this.Contains(edge.Point1)) { outside++; }
+            if (true == this.Contains(edge.Point2)) { outside++; }
             return (1 == outside);
         }
         public bool Outside(GEdge edge)
         {
             Int32 outside = 0;
-            if (true == this.Contains(edge.Point1)){outside++;}
-            if (true == this.Contains(edge.Point2)){outside++;}
+            if (true == this.Contains(edge.Point1)) { outside++; }
+            if (true == this.Contains(edge.Point2)) { outside++; }
             return (0 == outside);
         }
     }
@@ -307,12 +307,21 @@ namespace GraphUtility
         }
         public static GNode GetLeftTopNode(GBound bound, List<GNode> list)
         {
-            GNode result = null;
             GPoint lt = new GPoint(bound.Center.X - bound.WidthHalf, bound.Center.Y - bound.HeightHalf);
+            return (GNode.GetNearestNode(list, lt));
+        }
+        public static GNode GetRightBottomNode(GBound bound, List<GNode> list)
+        {
+            GPoint rb = new GPoint(bound.Center.X + bound.WidthHalf, bound.Center.Y + bound.HeightHalf);
+            return (GNode.GetNearestNode(list, rb));
+        }
+        public static GNode GetNearestNode(List<GNode> list, GPoint basePoint)
+        {
+            GNode result = null;
             float min = float.MaxValue;
             foreach (GNode node in list)
             {
-                float d = GPoint.Distance(lt, node.Point);
+                float d = GPoint.Distance(basePoint, node.Point);
                 if (d < min)
                 {
                     min = d;

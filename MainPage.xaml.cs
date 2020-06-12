@@ -68,6 +68,38 @@ namespace GraphTest
             this.DrawLine(p2, p3, color);
             this.DrawLine(p3, p1, color);
         }
+        private void DrawGraph(GNode node, Windows.UI.Color color, List<(GNode, GNode)> tupleList)
+        {
+            bool isRoot = false;
+            if (null == tupleList)
+            {
+                isRoot = true;
+                tupleList = new List<(GNode, GNode)>();
+            }
+            foreach (GNode neighber in node.Neighbers)
+            {
+                bool skip = false;
+                foreach (var t in tupleList)
+                {
+                    if (((node == t.Item1) && (neighber == t.Item2)) ||
+                        ((node == t.Item2) && (neighber == t.Item1)))
+                    {
+                        skip = true;
+                        break;
+                    }
+                }
+                if (false == skip)
+                {
+                    tupleList.Add((node, neighber));
+                    this.DrawLine(node.Point, neighber.Point, color);
+                    this.DrawGraph(neighber, color, tupleList);
+                }
+            }
+            if (true == isRoot)
+            {
+                this.DrawPoint(node.Point.X, node.Point.Y, Windows.UI.Colors.Black);
+            }
+        }
         private void HaltonSequence(Int32 dimension, Int32 start, Int32 count, List<GPoint> points)
         {
             Main_canvas.Children.Clear();
@@ -91,7 +123,7 @@ namespace GraphTest
                 Random rand = new Random();
                 Int32 start = rand.Next(20, 256);
                 Int32 count = 0;
-                if (false == int.TryParse(TextBox_point_size.Text, out count))
+                if ((false == int.TryParse(TextBox_point_size.Text, out count)) || (1024 < count))
                 {
                     count = 32;
                     TextBox_point_size.Text = string.Format("{0}", count);
@@ -151,7 +183,15 @@ namespace GraphTest
                     }
                 }
                 // delaunay graph.
-                this.DrawGraph(delaunay.RootGraphNode, Windows.UI.Colors.LightBlue);
+                if (true)
+                {
+                    this.DrawGraph(delaunay.RootGraphNode, Windows.UI.Colors.LightBlue, null);
+                }
+                // delaunay graph spanning tree.
+                if (true)
+                {
+                    this.DrawGraph(delaunay.SpanningTreeRoot, Windows.UI.Colors.Blue, null);
+                }
                 // points.
                 if (false)
                 {
@@ -181,9 +221,12 @@ namespace GraphTest
                 voronoi.Build(delaunay);
                 DateTime voronoiEndTime = DateTime.Now;
                 voronoiDiffTime = (voronoiEndTime - voronoiStartTime);
-                foreach (GEdge edge in voronoi.OriginalEdges)
+                if (false)
                 {
-                    this.DrawLine(edge.Point1, edge.Point2, Windows.UI.Colors.LightGray);
+                    foreach (GEdge edge in voronoi.OriginalEdges)
+                    {
+                        this.DrawLine(edge.Point1, edge.Point2, Windows.UI.Colors.LightGray);
+                    }
                 }
                 foreach (GEdge edge in voronoi.Edges)
                 {
@@ -193,38 +236,6 @@ namespace GraphTest
             Text_ElapsedTime.Text = string.Format("time : Delaunay {0} seconds / Voronoi {1} seconds ",
                 delaunayDiffTime.TotalSeconds,
                 voronoiDiffTime.TotalSeconds);
-        }
-        private void DrawGraph(GNode node, Windows.UI.Color color, List<(GNode, GNode)> tupleList = null)
-        {
-            bool isRoot = false;
-            if (null == tupleList)
-            {
-                isRoot = true;
-                tupleList = new List<(GNode, GNode)>();
-            }
-            foreach (GNode neighber in node.Neighbers)
-            {
-                bool skip = false;
-                foreach (var t in tupleList)
-                {
-                    if (((node == t.Item1) && (neighber == t.Item2)) ||
-                        ((node == t.Item2) && (neighber == t.Item1)))
-                    {
-                        skip = true;
-                        break;
-                    }
-                }
-                if (false == skip)
-                {
-                    tupleList.Add((node, neighber));
-                    this.DrawLine(node.Point, neighber.Point, color);
-                    this.DrawGraph(neighber, color, tupleList);
-                }
-            }
-            if (true == isRoot)
-            {
-                this.DrawPoint(node.Point.X, node.Point.Y, Windows.UI.Colors.Black);
-            }
         }
     }
 }
