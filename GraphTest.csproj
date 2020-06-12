@@ -49,14 +49,14 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
-    <Compile Include="DelaunayTriangulation.cs" />
-    <Compile Include="GraphUtility.cs" />
-    <Compile Include="HaltonSequence.cs" />
+    <Compile Include="Graph\DelaunayTriangulation.cs" />
+    <Compile Include="Graph\GraphUtility.cs" />
+    <Compile Include="Graph\HaltonSequence.cs" />
+    <Compile Include="Graph\VoronoiDiagram.cs" />
     <Compile Include="MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="VoronoiDiagram.cs" />
   </ItemGroup>
   <ItemGroup>
     <AppxManifest Include="Package.appxmanifest">
