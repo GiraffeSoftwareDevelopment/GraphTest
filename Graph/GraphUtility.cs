@@ -7,20 +7,22 @@ using System.Diagnostics;
 
 namespace GraphUtility
 {
-    class GPoint
+    public class GPoint
     {
         public float X = 0.0f;
         public float Y = 0.0f;
+        public float Z = 0.0f;
         public GPoint(float x, float y)
         {
             this.X = x;
             this.Y = y;
+            this.Z = 0.0f;
         }
         public static float Distance(GPoint p1, GPoint p2)
         {
             float result = 0.0f;
-            System.Numerics.Vector3 v1 = new System.Numerics.Vector3(p1.X, p1.Y, 0.0f);
-            System.Numerics.Vector3 v2 = new System.Numerics.Vector3(p2.X, p2.Y, 0.0f);
+            System.Numerics.Vector3 v1 = new System.Numerics.Vector3(p1.X, p1.Y, p1.Z);
+            System.Numerics.Vector3 v2 = new System.Numerics.Vector3(p2.X, p2.Y, p2.Z);
             result = System.Numerics.Vector3.Distance(v1, v2);
             return (result);
         }
@@ -34,7 +36,7 @@ namespace GraphUtility
             return (result);
         }
     }
-    class GEdge
+    public class GEdge
     {
         public GPoint Point1 = null;
         public GPoint Point2 = null;
@@ -116,7 +118,7 @@ namespace GraphUtility
             return (false);
         }
     }
-    class GCircle
+    public class GCircle
     {
         public GPoint Center = null;
         public float Radius = 0.0f;
@@ -126,7 +128,7 @@ namespace GraphUtility
             this.Radius = radius;
         }
     }
-    class GTriangle
+    public class GTriangle
     {
         public GEdge Edge1 = null;
         public GEdge Edge2 = null;
@@ -195,7 +197,7 @@ namespace GraphUtility
             return (result);
         }
     }
-    class GBound
+    public class GBound
     {
         public GPoint Center = null;
         public float WidthHalf = 0.0f;
@@ -207,10 +209,10 @@ namespace GraphUtility
             GPoint max = new GPoint(points[0].X, points[0].Y);
             for (Int32 index1 = 1; index1 < points.Count; index1++)
             {
-                min.X = MathF.Min(min.X, points[index1].X);
-                min.Y = MathF.Min(min.Y, points[index1].Y);
-                max.X = MathF.Max(max.X, points[index1].X);
-                max.Y = MathF.Max(max.Y, points[index1].Y);
+                min.X = Math.Min(min.X, points[index1].X);
+                min.Y = Math.Min(min.Y, points[index1].Y);
+                max.X = Math.Max(max.X, points[index1].X);
+                max.Y = Math.Max(max.Y, points[index1].Y);
             }
             this.WidthHalf = ((max.X - min.X) * 0.5f);
             this.HeightHalf = ((max.Y - min.Y) * 0.5f);
@@ -245,7 +247,7 @@ namespace GraphUtility
             return (0 == outside);
         }
     }
-    class GNode
+    public class GNode
     {
         public GPoint Point = null;
         public List<GNode> Neighbers = null;

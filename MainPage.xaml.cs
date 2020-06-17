@@ -100,20 +100,10 @@ namespace GraphTest
                 this.DrawPoint(node.Point.X, node.Point.Y, Windows.UI.Colors.Black);
             }
         }
-        private void HaltonSequence(Int32 dimension, Int32 start, Int32 count, List<GPoint> points)
+        private void HaltonSequenceTest(Int32 dimension, Int32 start, Int32 count, List<GPoint> points)
         {
             Main_canvas.Children.Clear();
-            {
-                List<float> hs = new List<float>();
-                for (Int32 index1 = 0; index1 < count; index1++)
-                {
-                    hs.Clear();
-                    global::HaltonSequence.Get(hs, start + index1, dimension);
-                    hs[0] *= (float)(Main_canvas.Width);
-                    hs[1] *= (float)(Main_canvas.Height);
-                    points.Add(new GPoint(hs[0], hs[1]));
-                }
-            }
+            HaltonSequence.Build(count, (float)(Main_canvas.Width), (float)(Main_canvas.Height), points);
         }
         private void Button1_Click(object sender, RoutedEventArgs e)
         {
@@ -128,7 +118,7 @@ namespace GraphTest
                     count = 32;
                     TextBox_point_size.Text = string.Format("{0}", count);
                 }
-                this.HaltonSequence(dimension, start, count, points);
+                this.HaltonSequenceTest(dimension, start, count, points);
             }
             TimeSpan delaunayDiffTime;
             DelaunayTriangulation delaunay = new DelaunayTriangulation();
